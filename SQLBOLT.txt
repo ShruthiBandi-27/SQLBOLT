@@ -1,0 +1,177 @@
+SQLBOLT
+
+-----------------------------------------
+
+SQL Lesson 1: SELECT queries
+
+1) SELECT title from movies
+
+2) SELECT director from movies
+
+3) SELECT title,director from movies
+
+4) SELECT title,year from movies
+
+5) SELECT * from movies
+-----------------------------------------
+
+SQL Lesson 2: Queries with constraints (Pt. 1)
+
+1) SELECT * FROM movies WHERE id=6
+
+2) SELECT * FROM movies WHERE year BETWEEN 2000 and 2010
+
+3) SELECT * FROM movies WHERE year NOT BETWEEN 2000 and 2010
+
+4) SELECT * FROM movies where id BETWEEN 1 and 5
+
+-----------------------------------------
+
+SQL Lesson 3: Queries with constraints (Pt. 2)
+
+1) SELECT * FROM movies where title LIKE "%Toy Story%";
+
+2) SELECT * FROM movies WHERE director LIKE "John Lasseter";
+
+3) SELECT * FROM movies WHERE director NOT LIKE "John Lasseter";
+
+4) SELECT * FROM movies WHERE title LIKE "WALL-%";
+
+-----------------------------------------
+
+SQL Lesson 4: Filtering and sorting Query results
+
+1) SELECT DISTINCT director FROM movies ORDER BY director ASC;
+
+2) SELECT title FROM movies ORDER BY year DESC LIMIT 4;
+
+3) SELECT title FROM movies ORDER BY title ASC LIMIT 5;
+
+4) SELECT title FROM movies ORDER BY title ASC LIMIT 5 OFFSET 5;
+-----------------------------------------
+
+SQL Review: Simple SELECT Queries
+
+1) SELECT city, population FROM north_american_cities WHERE country="Canada";
+
+2) SELECT city FROM North_american_cities where country LIKE "United States" ORDER BY latitude DESC
+
+3) SELECT city FROM North_american_cities where longitude < -87.629798 ORDER BY longitude ASC
+
+4) SELECT city from North_american_cities where country LIKE "MEXICO" ORDER BY population DESC limit 2
+
+5) SELECT city,population from North_american_cities where country LIKE "United States" ORDER BY population DESC LIMIT 2 OFFSET 2
+-----------------------------------------
+
+SQL Lesson 6: Multi-table queries with JOINs
+
+1) SELECT title,Domestic_sales,International_sales from movies INNER JOIN  boxoffice ON movies.id = boxoffice.movie_id
+
+2) SELECT title,Domestic_sales,International_sales from movies INNER JOIN  boxoffice ON movies.id = boxoffice.movie_id where International_sales >  Domestic_sales
+
+3) SELECT title,rating from movies INNER JOIN boxoffice ON movies.id=boxoffice.movie_id ORDER BY rating DESC
+
+-----------------------------------------
+SQL Lesson 7: OUTER JOINs
+
+1) SELECT DISTINCT building FROM employees;
+
+2) SELECT* from Buildings;
+
+3) SELECT DISTINCT Building_name, role FROM Buildings LEFT JOIN Employees ON Building_name=Building
+------------------------------------------
+
+SQL Lesson 8: A short note on NULLs
+
+1) SELECT * FROM Employees where building IS NULL;
+
+2) SELECT Building_name from Buildings LEFT JOIN Employees ON Building_name=Building where Years_employed IS NULL
+---------------------------------------
+
+SQL Lesson 9 : Queries Expressions
+
+SELECT title, (domestic_sales + international_sales)/1000000 AS combinedSales fROM movies INNER JOIN boxoffice ON movies.id=boxoffice.movie_id
+
+SELECT title, rating*10 AS Rating from movies INNER JOIN boxoffice ON movies.id = boxoffice.movie_id
+
+SELECT title, year FROM movies WHERE year % 2 = 0;
+-------------------------------------------------
+
+SQL Lesson 10 : Queries with Aggregates - Part 1
+
+1) SELECT MAX(years_employed) from employees
+
+2) SELECT role, AVG(years_employed) from employees GROUP BY role
+
+3) SELECT building, SUM(years_employed) from employees GROUP BY  building
+
+----------------------------------------------------
+
+SQL Lesson 11 :Queries with Aggregates - Part 2
+
+1) SELECT COUNT(Role)  AS NO_OF_ARTISTS from employees where role="Artist" 
+
+2) SELECT role,COUNT(Role)  AS NO_OF_ARTISTS from employees GROUP BY role
+
+3) SELECT SUM(years_employed) AS TOTAL_ENGINEERS from employees GROUP BY role HAVING role="Engineer"
+
+----------------------------------------------------
+
+SQL Lesson 12 :Order of execution of queries
+
+1) SELECT director,COUNT(title) AS NO_OF_MOVIES fROM movies GROUP BY director
+
+2)SELECT director, SUM(domestic_sales)+SUM(international_sales) AS SALES from movies INNER JOIN boxoffice ON movies.id = boxoffice.movie_id GROUP BY director
+
+ ----------------------------------------------------
+
+SQL Lesson 13 :Inserting rows
+
+1) INSERT into movies (title,director) VALUES ("Toy Story 4", "Brad Bird")
+
+2) INSERT into boxoffice (movie_id, rating, domestic_sales, international_sales) values (15,8.7,340000000,270000000)
+
+
+----------------------------------------------------
+
+SQL Lesson 14 :Updating rows
+
+1) UPDATE movies SET director="John Lasseter" where title="A Bug's Life"
+
+2) UPDATE movies SET year=1999 where title="Toy Story 2" 
+
+3) UPDATE movies SET title="Toy Story 3",director="Lee Unkrich" where title="Toy Story 8" 
+
+----------------------------------------------------
+
+SQL Lesson 15 :Deleting rows
+
+1) DELETE FROM movies where year<2005
+
+2) DELETE FROM movies where director="Andrew Stanton"
+----------------------------------------------------
+
+SQL Lesson 16 :Create tables
+
+1) CREATE TABLE Database (
+    Name TEXT,
+    Version FLOAT,
+    Download_count INTEGER
+)
+----------------------------------------------------
+
+SQL Lesson 17 :Alter tables
+
+1) ALTER TABLE movies ADD Aspect_ratio FLOAT
+
+2) ALTER TABLE movies ADD Language TEXT DEFAULT "ENGLISH"
+
+----------------------------------------------------
+
+SQL Lesson 18 :Droping tables
+
+1) DROP TABLE IF EXISTS movies
+
+2) DROP TABLE IF EXISTS boxoffice
+
+----------------------------------------------------
